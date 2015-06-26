@@ -88,12 +88,12 @@ ATR : 3B 88 80 01 00 00 00 00 00 81 71 00 F9
 
 
 ------------------------------------------------------
-HCE Service / Secure Element simulé / AIDL interface
+HCE Service / Secure Element simulÃ© / AIDL interface
 
 @see com.dejamobile.ardeco.lib.ServiceEntryPoint
 @see IServiceEntryPoint.aidl
 ------------------------------------------------------
-Pour des exemples d'invocation des points d'entrées de l'interface se référer à MainActivity.java
+Pour des exemples d'invocation des points d'entrÃ©es de l'interface se rÃ©fÃ©rer Ã  MainActivity.java
 dans le module app
 
 
