@@ -1,4 +1,8 @@
 
+
+Ardeco :
+
+
 *** How to start the piscine service from another android application ? ***
 Intent intent = new Intent("android.intent.action.MAIN");
 intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
@@ -22,3 +26,12 @@ intent.addCategory("android.intent.category.LAUNCHER");
 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 intent.putExtra("ardeco_app","MobileRead");
 startActivity(intent);
+
+*** how to start the piscine service in daw windows emulator ? ***
+	android : tag with the following text message : "<ohm a='taglet_download' i='http://argentan.digitalairways.com:8080/ardeco/piscine.taglet'/>"
+	windows : sendudp 127.0.0.1 1658 "<ohm a='taglet_download' i='http://argentan.digitalairways.com:8080/ardeco/piscine.taglet'/>"
+
+*** how to start the creche service ? ***
+	android : tag with the following text message : "<ohm a='taglet_download' i='http://argentan.digitalairways.com:8080/ardeco/creche.taglet'/>"
+	windows : sendudp 127.0.0.1 1658 "<ohm a='taglet_download' i='http://argentan.digitalairways.com:8080/ardeco/creche.taglet'/>"
+
