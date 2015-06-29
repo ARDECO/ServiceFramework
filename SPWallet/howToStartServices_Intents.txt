@@ -1,0 +1,24 @@
+
+*** How to start the piscine service from another android application ? ***
+Intent intent = new Intent("android.intent.action.MAIN");
+intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
+intent.addCategory("android.intent.category.LAUNCHER");
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+intent.putExtra("ardeco_app","Piscine");
+startActivity(intent);
+
+*** How to start the creche service from another android application ? ***
+Intent intent = new Intent("android.intent.action.MAIN");
+intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
+intent.addCategory("android.intent.category.LAUNCHER");
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+intent.putExtra("ardeco_app","Creche");
+startActivity(intent);
+
+*** How to start the mobile read service from another android application ? ***
+Intent intent = new Intent("android.intent.action.MAIN");
+intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
+intent.addCategory("android.intent.category.LAUNCHER");
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+intent.putExtra("ardeco_app","MobileRead");
+startActivity(intent);
