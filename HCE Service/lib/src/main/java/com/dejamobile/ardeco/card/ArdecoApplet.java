@@ -9,13 +9,7 @@ import java.util.Random;
  */
 public class ArdecoApplet extends HCEApplet {
 
-    protected final static short MF = (short) 0x3F00;
-    protected final static short EF_CHV1 = (short) 0x0000;
-    protected final static short EF_CHV2 = (short) 0x0100;
-    protected final static short EF_KEY_EXT = (short) 0x0011;
-    protected final static short EF_KEY_INT = (short) 0x0001;
-    protected final static short EF_ATR = (short) 0x2F01;
-    protected final static short EF_ICC_SN = (short) 0x0002;
+
     protected final static byte PIN_SIZE = 8;
     protected final static byte CHV1_PIN = (byte) 0x01;
     protected final static byte CARDHOLDER_PIN_TRY_LIMIT = 3;
@@ -184,7 +178,7 @@ public class ArdecoApplet extends HCEApplet {
                 buffer[ISO7816.OFFSET_CDATA + 1]);
         // if file identifier is the master file, select it immediately
         AbstractFile s = null;
-        if (fid == MF)
+        if (fid == AbstractFile.MF)
             selectedFile = masterFile;
 
         else {
@@ -242,7 +236,7 @@ public class ArdecoApplet extends HCEApplet {
                     buffer[(short) (ISO7816.OFFSET_CDATA + i)],
                     buffer[(short) (ISO7816.OFFSET_CDATA + i + 1)]);
             // MF en tete ?
-            if ((i == 0) && (fid == MF))
+            if ((i == 0) && (fid == AbstractFile.MF))
                 f = masterFile;
             else {
                 if ((f instanceof ElementaryFile) || f == null)
