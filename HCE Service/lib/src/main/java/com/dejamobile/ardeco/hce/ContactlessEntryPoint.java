@@ -1,5 +1,7 @@
 package com.dejamobile.ardeco.hce;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.nfc.cardemulation.HostApduService;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,5 +58,13 @@ public class ContactlessEntryPoint extends HostApduService {
         } catch (SnappydbException e) {
             Log.w(TAG, "File System persist issue " + e.getMessage());
         }
+        //Launch Taglet
+        Intent intent = new Intent("android.intent.action.MAIN");
+        intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
+        intent.addCategory("android.intent.category.LAUNCHER");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("ardeco_app","MobileRead");
+        startActivity(intent);
+
     }
 }
