@@ -16,6 +16,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.dejamobile.ardeco.card.ArdecoApplet;
 import com.dejamobile.ardeco.card.MasterFile;
 import com.dejamobile.ardeco.service.ArdecoCardManager;
 import com.dejamobile.ardeco.util.DBManager;
@@ -72,6 +73,11 @@ public class ServiceEntryPoint extends Service {
             checkCallback(callback);
             Log.d(TAG, "UserInfo name : " + userInfo.getName() + " " + userInfo.getFamilyName());
             Log.d(TAG, "UserInfo address : " + userInfo.getAddress().getLocality() + " " + userInfo.getAddress().getPostalCode());
+
+            if (userInfo.getArdecoId() != null & !userInfo.getArdecoId().isEmpty()){
+                Log.d(TAG, "ArdecoId update required : " + userInfo.getArdecoId());
+                ArdecoCardManager.getInstance().createIdFile(MasterFile.getInstance(), userInfo.getArdecoId());
+            }
 
             try {
                 DBManager.getInstance(getApplicationContext()).storeUserInfo(userInfo);
