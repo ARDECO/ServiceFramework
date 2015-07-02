@@ -137,7 +137,7 @@ public class MainActivity extends ActionBarActivity {
         userInfo.setAddress(address);
         userInfo.setName(name);
         userInfo.setEmail(email);
-        userInfo.setArdecoId("0123456789abcdef");
+        userInfo.setArdecoId("99999999999");
         try {
             entryPoint.updateUserInfo(userInfo, new ArdecoCallBack() {
                 @Override
