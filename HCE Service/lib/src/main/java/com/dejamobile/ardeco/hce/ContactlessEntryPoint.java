@@ -11,6 +11,7 @@ import com.dejamobile.ardeco.card.APDU;
 import com.dejamobile.ardeco.card.ArdecoApplet;
 import com.dejamobile.ardeco.card.ISOException;
 import com.dejamobile.ardeco.util.DBManager;
+import com.dejamobile.ardeco.util.IntentsFactory;
 import com.snappydb.SnappydbException;
 
 
@@ -21,9 +22,11 @@ public class ContactlessEntryPoint extends HostApduService {
 
     private static final String TAG = ContactlessEntryPoint.class.getName();
 
+    private static ContactlessEntryPoint instance;
+
     private static final String TRACE_TAG = "trace_process_command_apdu_";
 
-    private ArdecoApplet ardecoApplet = new ArdecoApplet();
+    private ArdecoApplet ardecoApplet = new ArdecoApplet(getApplicationContext());
 
     @Override
     public void onCreate() {
@@ -58,13 +61,7 @@ public class ContactlessEntryPoint extends HostApduService {
         } catch (SnappydbException e) {
             Log.w(TAG, "File System persist issue " + e.getMessage());
         }
-        //Launch Taglet
-        Intent intent = new Intent("android.intent.action.MAIN");
-        intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
-        intent.addCategory("android.intent.category.LAUNCHER");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("ardeco_app","MobileRead");
-        startActivity(intent);
+
 
     }
 }

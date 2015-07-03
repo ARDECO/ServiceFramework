@@ -24,6 +24,8 @@ public class ArdecoCardManager {
     private final static String UPDATE_ID_FILE = "00dc00000a";
 
     private static final String TAG = ArdecoCardManager.class.getCanonicalName();
+    public static final int NB_DIGITS = 20;
+    public static final String PADDING_DIGIT = "F";
 
     private static ArdecoCardManager instance;
 
@@ -59,7 +61,6 @@ public class ArdecoCardManager {
         }
     }
 
-
     public void createService(short communityId, String servcieId, String signature, ArdecoCallBack callBack){
 
         String createDFApdu = CREATE_DF_APDU_START + servcieId + CREATE_DF_APDU_END;
@@ -76,16 +77,15 @@ public class ArdecoCardManager {
         }
     }
 
-    public void createIdFile(DedicatedFile df,  String data){
+    public void createAndUpdateIdFile(DedicatedFile df, String data){
 
         Log.d(TAG, "Main Id : " + data);
-        String paddedData = String.format("%1$-" + 20 + "s", data);
-        paddedData = paddedData.replace(" ", "F");
+        String paddedData = String.format("%1$-" + NB_DIGITS + "s", data);
+        paddedData = paddedData.replace(" ", PADDING_DIGIT);
         Log.d(TAG, "Padded data : " + paddedData);
 
         df.createFile(new APDU(ConvertUtils.hex2byte(CREATE_ID_FILE)));
-
-        ((DedicatedFile) MasterFile.getInstance()).getSibling((short) 2).updateRecord(new APDU(ConvertUtils.hex2byte(UPDATE_ID_FILE + paddedData)));
+        df.getSibling(AbstractFile.EF_ICC_SN).updateRecord(new APDU(ConvertUtils.hex2byte(UPDATE_ID_FILE + paddedData)));
     }
 
     private void checkDFStatus( AbstractFile df, ArdecoCallBack callBack) {
