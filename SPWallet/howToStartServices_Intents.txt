@@ -1,0 +1,62 @@
+
+
+Ardeco :
+
+
+*** How to start the piscine service from another android application ? ***
+Intent intent = new Intent("android.intent.action.MAIN");
+intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
+intent.addCategory("android.intent.category.LAUNCHER");
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+intent.putExtra("ardeco_user_infos","XXXX");
+intent.putExtra("ardeco_app","YYYY");
+startActivity(intent);
+
+AVEC XXXX comme valeurs :
+{"id":"7","sub":"95562378014","name":"Olivier","given_name":"","family_name":"Geslin","nickname":"Olivier Geslin","profile":"","picture":"","website":"","gender":"male","birthdate":"","zoneinfo":"Europe\/Paris","locale":"fr-FR","email":"olivier.geslin@digitalairways.com","email_verified":"0","phone_number":"","phone_number_verified":"0","address":"{\"id\":\"7\",\"formatted\":\", ici, , \",\"street_address\":\"\",\"locality\":\"ici\",\"region\":\"\",\"postal_code\":\"\",\"country\":\"\",\"address_verified\":\"0\"}"}
+
+avec YYYY comme valeur celle que j'ai passé dans l'intent de démarrage de l'application
+startActivity(intent);
+
+*** How to start the creche service from another android application ? ***
+Intent intent = new Intent("android.intent.action.MAIN");
+intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
+intent.addCategory("android.intent.category.LAUNCHER");
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+intent.putExtra("ardeco_app","Creche");
+startActivity(intent);
+
+*** How to start the mobile read service from another android application ? ***
+Intent intent = new Intent("android.intent.action.MAIN");
+intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
+intent.addCategory("android.intent.category.LAUNCHER");
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+intent.putExtra("ardeco_app","MobileRead");
+startActivity(intent);
+
+*** How to start the mobile success service from another android application ? ***
+Intent intent = new Intent("android.intent.action.MAIN");
+intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
+intent.addCategory("android.intent.category.LAUNCHER");
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+intent.putExtra("ardeco_app","MobileReadOk");
+startActivity(intent);
+
+*** How to start the mobile failed service from another android application ? ***
+Intent intent = new Intent("android.intent.action.MAIN");
+intent.setComponent(ComponentName.unflattenFromString("com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid"));
+intent.addCategory("android.intent.category.LAUNCHER");
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+intent.putExtra("ardeco_app","MobileReadNok");
+startActivity(intent);
+
+
+
+*** how to start the piscine service in daw windows emulator ? ***
+	android : tag with the following text message : "<ohm a='taglet_download' i='http://argentan.digitalairways.com:8080/ardeco/piscine.taglet'/>"
+	windows : sendudp 127.0.0.1 1658 "<ohm a='taglet_download' i='http://argentan.digitalairways.com:8080/ardeco/piscine.taglet'/>"
+
+*** how to start the creche service ? ***
+	android : tag with the following text message : "<ohm a='taglet_download' i='http://argentan.digitalairways.com:8080/ardeco/creche.taglet'/>"
+	windows : sendudp 127.0.0.1 1658 "<ohm a='taglet_download' i='http://argentan.digitalairways.com:8080/ardeco/creche.taglet'/>"
+
