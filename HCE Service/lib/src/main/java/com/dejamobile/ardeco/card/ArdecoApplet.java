@@ -96,7 +96,6 @@ public class ArdecoApplet extends HCEApplet {
                     if (apdu.getP1() ==(byte)0xff){
                         if (apdu.getP2() == (byte)0){
                             context.startActivity(IntentsFactory.buildPushKoIntent());
-                            ISOException.throwIt(ISO7816.SW_LAUNCH_TRANS_KO);
                         }else if(apdu.getP2() == (byte)1){
                             context.startActivity(IntentsFactory.buildPushOkIntent());
                         }
