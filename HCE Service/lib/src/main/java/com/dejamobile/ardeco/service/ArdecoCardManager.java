@@ -84,7 +84,9 @@ public class ArdecoCardManager {
         paddedData = paddedData.replace(" ", PADDING_DIGIT);
         Log.d(TAG, "Padded data : " + paddedData);
 
-        df.createFile(new APDU(ConvertUtils.hex2byte(CREATE_ID_FILE)));
+        if (null == df.getSibling(AbstractFile.EF_ICC_SN)) {
+            df.createFile(new APDU(ConvertUtils.hex2byte(CREATE_ID_FILE)));
+        }
         df.getSibling(AbstractFile.EF_ICC_SN).updateRecord(new APDU(ConvertUtils.hex2byte(UPDATE_ID_FILE + paddedData)));
     }
 
