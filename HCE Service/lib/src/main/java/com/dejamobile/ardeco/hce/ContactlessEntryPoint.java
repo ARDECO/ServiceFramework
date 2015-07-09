@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.dejamobile.ConvertUtils;
+import com.dejamobile.ardeco.application.ArdecoLibrary;
 import com.dejamobile.ardeco.card.APDU;
 import com.dejamobile.ardeco.card.ArdecoApplet;
 import com.dejamobile.ardeco.card.ISOException;
@@ -26,7 +27,7 @@ public class ContactlessEntryPoint extends HostApduService {
 
     private static final String TRACE_TAG = "trace_process_command_apdu_";
 
-    private ArdecoApplet ardecoApplet = new ArdecoApplet(getApplicationContext());
+    private ArdecoApplet ardecoApplet = new ArdecoApplet();
 
     @Override
     public void onCreate() {
@@ -36,6 +37,7 @@ public class ContactlessEntryPoint extends HostApduService {
     public byte[] processCommandApdu(byte[] apdu, Bundle bundle) {
 
         Log.d(TAG,"Received APDU : " + ConvertUtils.toHexString(apdu));
+        ardecoApplet.setContext(ArdecoLibrary.getInstance().getApplicationContext());
         APDU processedApdu = new APDU(apdu);
 
         try {

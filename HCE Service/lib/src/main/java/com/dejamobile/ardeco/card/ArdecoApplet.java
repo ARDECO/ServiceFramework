@@ -52,7 +52,10 @@ public class ArdecoApplet extends HCEApplet {
      */
     private Context context;
 
-    public ArdecoApplet(Context context) {
+    public ArdecoApplet() {
+    }
+
+    public void setContext(Context context) {
         this.context = context;
     }
 
