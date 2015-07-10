@@ -7,7 +7,7 @@ import android.app.Application;
  */
 public class ArdecoLibrary extends Application {
 
-    private static ArdecoLibrary instance;
+    private static Application instance;
 
     @Override
     public void onCreate() {
@@ -15,12 +15,12 @@ public class ArdecoLibrary extends Application {
         updateInstance(this);
     }
 
-    private static void updateInstance(ArdecoLibrary instance)
+    public static void updateInstance(Application instance)
     {
         ArdecoLibrary.instance=instance;
     }
 
-    public static ArdecoLibrary getInstance()
+    public static Application getInstance()
     {
         return instance;
     }
