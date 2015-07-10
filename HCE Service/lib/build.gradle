@@ -9,7 +9,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.1.0"
-        buildConfigField "String", "DAW_TAGLET_TARGET", "\"com.digitalairways.kaleido.rosen.spwallet / com.digitalairways.kaleido.rosen.spwallet.KAndroid\""
+        buildConfigField "String", "DAW_TAGLET_TARGET", "\"com.digitalairways.kaleido.rosen.spwallet/com.digitalairways.kaleido.rosen.spwallet.KAndroid\""
     }
     buildTypes {
         debug {
