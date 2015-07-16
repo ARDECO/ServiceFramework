@@ -38,6 +38,7 @@ public class ContactlessEntryPoint extends HostApduService {
 
         Log.d(TAG,"Received APDU : " + ConvertUtils.toHexString(apdu));
         ardecoApplet.setContext(this);
+
         APDU processedApdu = new APDU(apdu);
 
         try {
