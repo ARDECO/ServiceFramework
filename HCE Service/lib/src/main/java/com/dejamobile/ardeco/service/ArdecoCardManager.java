@@ -50,7 +50,7 @@ public class ArdecoCardManager {
 
     private void createDF(ArdecoCallBack callBack, String createDFApdu) {
         try {
-            AbstractFile df = ((DedicatedFile) MasterFile.getInstance()).createFile(new APDU(ConvertUtils.hex2byte(createDFApdu)));
+            AbstractFile df = MasterFile.getInstance().createFile(new APDU(ConvertUtils.hex2byte(createDFApdu)));
             checkDFStatus(df, callBack);
         }catch (ISOException e){
             try {
@@ -65,7 +65,7 @@ public class ArdecoCardManager {
 
         String createDFApdu = CREATE_DF_APDU_START + servcieId + CREATE_DF_APDU_END;
         // Community Exists ?
-        DedicatedFile df = (DedicatedFile) ((DedicatedFile) MasterFile.getInstance()).getSibling(communityId);
+        DedicatedFile df = (DedicatedFile) MasterFile.getInstance().getSibling(communityId);
         if (df != null) {
             createDF(callBack, createDFApdu);
         }else{
