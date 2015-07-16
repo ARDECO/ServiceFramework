@@ -20,8 +20,8 @@ public class ArdecoCardManager {
     private final static String CREATE_DF_APDU_START = "00E000000E7800";
     private final static String CREATE_DF_APDU_END = "08004F44FF01031F11FF";
 
-    private final static String CREATE_ID_FILE = "00e000010f001d0002020000000001000000000a";
-    private final static String UPDATE_ID_FILE = "00dc00000a";
+    private final static String CREATE_ID_FILE = "00e000010E000A000201000000000100000000";
+    private final static String UPDATE_ID_FILE = "00d600000a";
 
     private static final String TAG = ArdecoCardManager.class.getCanonicalName();
     public static final int NB_DIGITS = 20;
@@ -87,7 +87,7 @@ public class ArdecoCardManager {
         if (null == df.getSibling(AbstractFile.EF_ICC_SN)) {
             df.createFile(new APDU(ConvertUtils.hex2byte(CREATE_ID_FILE)));
         }
-        df.getSibling(AbstractFile.EF_ICC_SN).updateRecord(new APDU(ConvertUtils.hex2byte(UPDATE_ID_FILE + paddedData)));
+        df.getSibling(AbstractFile.EF_ICC_SN).updateBinary(new APDU(ConvertUtils.hex2byte(UPDATE_ID_FILE + paddedData)));
     }
 
     private void checkDFStatus( AbstractFile df, ArdecoCallBack callBack) {
