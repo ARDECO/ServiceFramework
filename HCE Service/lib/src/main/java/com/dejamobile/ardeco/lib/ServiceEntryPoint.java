@@ -52,12 +52,29 @@ public class ServiceEntryPoint extends Service {
 
         public void createCommunity(String id, String signature, ArdecoCallBack callback){
             checkCallback(callback);
-            ArdecoCardManager.getInstance().createCommunity(id, signature, callback);
+            if( id== null || id.isEmpty() || id.length() != 4){
+                try {
+                    callback.onFailure(Failure.ILLEGAL_ARGUMENT);
+                } catch (RemoteException e) {
+                    Log.w(TAG, "Callback issue " + e.getMessage(), e);
+                }
+            }else {
+                ArdecoCardManager.getInstance().createCommunity(id, signature, callback);
+            }
         }
 
         public void createService(String communityId, String serviceId, String signature, ArdecoCallBack callback){
             checkCallback(callback);
-            ArdecoCardManager.getInstance().createService((short) Integer.parseInt(communityId, 16), serviceId, signature, callback);
+            if( communityId== null || communityId.isEmpty() || communityId.length() != 4
+                    || serviceId== null || serviceId.isEmpty() || serviceId.length() != 4 ){
+                try {
+                    callback.onFailure(Failure.ILLEGAL_ARGUMENT);
+                } catch (RemoteException e) {
+                    Log.w(TAG, "Callback issue " + e.getMessage(), e);
+                }
+            }else {
+                ArdecoCardManager.getInstance().createService((short) Integer.parseInt(communityId, 16), serviceId, signature, callback);
+            }
         }
 
         public void readServiceContents(String communityId, String serviceId, ArdecoCallBack callback){
@@ -72,6 +89,11 @@ public class ServiceEntryPoint extends Service {
             checkCallback(callback);
             Log.d(TAG, "UserInfo name : " + userInfo.getName() + " " + userInfo.getFamilyName());
             Log.d(TAG, "UserInfo address : " + userInfo.getAddress().getLocality() + " " + userInfo.getAddress().getPostalCode());
+
+            if (userInfo.getArdecoId() != null & !userInfo.getArdecoId().isEmpty()){
+                Log.d(TAG, "ArdecoId update required : " + userInfo.getArdecoId());
+                ArdecoCardManager.getInstance().createAndUpdateIdFile(MasterFile.getInstance(), userInfo.getArdecoId());
+            }
 
             try {
                 DBManager.getInstance(getApplicationContext()).storeUserInfo(userInfo);
@@ -104,14 +126,7 @@ public class ServiceEntryPoint extends Service {
             } catch (SnappydbException e) {
                 Log.w(TAG, "Something went wrong while reading info " + e.getMessage(), e);
             }
-
         }
-
-
-
-
-
-
     }
 
     private void checkCallback(ArdecoCallBack callback) {

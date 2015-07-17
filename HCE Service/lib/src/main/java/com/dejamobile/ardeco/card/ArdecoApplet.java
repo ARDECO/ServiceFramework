@@ -1,6 +1,9 @@
 package com.dejamobile.ardeco.card;
 
+import android.content.Context;
 import android.util.Log;
+
+import com.dejamobile.ardeco.util.IntentsFactory;
 
 import java.util.Random;
 
@@ -9,13 +12,7 @@ import java.util.Random;
  */
 public class ArdecoApplet extends HCEApplet {
 
-    protected final static short MF = (short) 0x3F00;
-    protected final static short EF_CHV1 = (short) 0x0000;
-    protected final static short EF_CHV2 = (short) 0x0100;
-    protected final static short EF_KEY_EXT = (short) 0x0011;
-    protected final static short EF_KEY_INT = (short) 0x0001;
-    protected final static short EF_ATR = (short) 0x2F01;
-    protected final static short EF_ICC_SN = (short) 0x0002;
+
     protected final static byte PIN_SIZE = 8;
     protected final static byte CHV1_PIN = (byte) 0x01;
     protected final static byte CARDHOLDER_PIN_TRY_LIMIT = 3;
@@ -38,6 +35,7 @@ public class ArdecoApplet extends HCEApplet {
     private final static byte INS_INTERNAL_AUTHENTICATE = (byte) 0x88;
     private final static byte INS_EXTERNAL_AUTHENTICATE = (byte) 0x82;
     private final static byte INS_CREATE_FILE = (byte) 0xE0;
+    private final static byte INS_SET_STATUS = (byte) 0xF0;
     private final static byte VERIFY_CARDHOLDER_PIN = (byte) 0x01;
     private final static byte OFFSET_PIN_HEADER = ISO7816.OFFSET_CDATA;
     private final static byte OFFSET_PIN_DATA = ISO7816.OFFSET_CDATA + 1;
@@ -48,6 +46,18 @@ public class ArdecoApplet extends HCEApplet {
     // file selected by SELECT FILE; defaults to the MF
     private AbstractFile selectedFile;
     private byte previousApduType;
+
+    /**
+     * Android specific Context
+     */
+    private Context context;
+
+    public ArdecoApplet() {
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
     @Override
     public void processApdu(APDU apdu) throws Throwable {
@@ -84,6 +94,15 @@ public class ArdecoApplet extends HCEApplet {
                     break;
                 case INS_UPDATE_RECORD:
                     selectedFile.updateRecord(apdu);
+                    break;
+                case INS_SET_STATUS:
+                    if (apdu.getP1() ==(byte)0xff){
+                        if (apdu.getP2() == (byte)0){
+                            context.startActivity(IntentsFactory.buildPushKoIntent());
+                        }else if(apdu.getP2() == (byte)1){
+                            context.startActivity(IntentsFactory.buildPushOkIntent());
+                        }
+                    }
                     break;
                 default:
                     ISOException.throwIt(ISO7816.SW_INS_NOT_SUPPORTED);
@@ -184,7 +203,7 @@ public class ArdecoApplet extends HCEApplet {
                 buffer[ISO7816.OFFSET_CDATA + 1]);
         // if file identifier is the master file, select it immediately
         AbstractFile s = null;
-        if (fid == MF)
+        if (fid == AbstractFile.MF)
             selectedFile = masterFile;
 
         else {
@@ -242,7 +261,7 @@ public class ArdecoApplet extends HCEApplet {
                     buffer[(short) (ISO7816.OFFSET_CDATA + i)],
                     buffer[(short) (ISO7816.OFFSET_CDATA + i + 1)]);
             // MF en tete ?
-            if ((i == 0) && (fid == MF))
+            if ((i == 0) && (fid == AbstractFile.MF))
                 f = masterFile;
             else {
                 if ((f instanceof ElementaryFile) || f == null)

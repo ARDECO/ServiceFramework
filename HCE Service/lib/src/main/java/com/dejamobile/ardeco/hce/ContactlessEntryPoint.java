@@ -1,14 +1,18 @@
 package com.dejamobile.ardeco.hce;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.nfc.cardemulation.HostApduService;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.dejamobile.ConvertUtils;
+import com.dejamobile.ardeco.application.ArdecoLibrary;
 import com.dejamobile.ardeco.card.APDU;
 import com.dejamobile.ardeco.card.ArdecoApplet;
 import com.dejamobile.ardeco.card.ISOException;
 import com.dejamobile.ardeco.util.DBManager;
+import com.dejamobile.ardeco.util.IntentsFactory;
 import com.snappydb.SnappydbException;
 
 
@@ -18,6 +22,8 @@ import com.snappydb.SnappydbException;
 public class ContactlessEntryPoint extends HostApduService {
 
     private static final String TAG = ContactlessEntryPoint.class.getName();
+
+    private static ContactlessEntryPoint instance;
 
     private static final String TRACE_TAG = "trace_process_command_apdu_";
 
@@ -31,6 +37,8 @@ public class ContactlessEntryPoint extends HostApduService {
     public byte[] processCommandApdu(byte[] apdu, Bundle bundle) {
 
         Log.d(TAG,"Received APDU : " + ConvertUtils.toHexString(apdu));
+        ardecoApplet.setContext(this);
+
         APDU processedApdu = new APDU(apdu);
 
         try {
@@ -56,5 +64,7 @@ public class ContactlessEntryPoint extends HostApduService {
         } catch (SnappydbException e) {
             Log.w(TAG, "File System persist issue " + e.getMessage());
         }
+
+
     }
 }

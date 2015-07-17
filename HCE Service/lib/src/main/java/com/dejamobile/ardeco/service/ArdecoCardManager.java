@@ -20,7 +20,12 @@ public class ArdecoCardManager {
     private final static String CREATE_DF_APDU_START = "00E000000E7800";
     private final static String CREATE_DF_APDU_END = "08004F44FF01031F11FF";
 
+    private final static String CREATE_ID_FILE = "00e000010E000A000201000000000100000000";
+    private final static String UPDATE_ID_FILE = "00d600000a";
+
     private static final String TAG = ArdecoCardManager.class.getCanonicalName();
+    public static final int NB_DIGITS = 20;
+    public static final String PADDING_DIGIT = "F";
 
     private static ArdecoCardManager instance;
 
@@ -45,7 +50,7 @@ public class ArdecoCardManager {
 
     private void createDF(ArdecoCallBack callBack, String createDFApdu) {
         try {
-            AbstractFile df = ((DedicatedFile) MasterFile.getInstance()).createFile(new APDU(ConvertUtils.hex2byte(createDFApdu)));
+            AbstractFile df = MasterFile.getInstance().createFile(new APDU(ConvertUtils.hex2byte(createDFApdu)));
             checkDFStatus(df, callBack);
         }catch (ISOException e){
             try {
@@ -56,12 +61,11 @@ public class ArdecoCardManager {
         }
     }
 
-
     public void createService(short communityId, String servcieId, String signature, ArdecoCallBack callBack){
 
         String createDFApdu = CREATE_DF_APDU_START + servcieId + CREATE_DF_APDU_END;
         // Community Exists ?
-        DedicatedFile df = (DedicatedFile) ((DedicatedFile) MasterFile.getInstance()).getSibling(communityId);
+        DedicatedFile df = (DedicatedFile) MasterFile.getInstance().getSibling(communityId);
         if (df != null) {
             createDF(callBack, createDFApdu);
         }else{
@@ -71,6 +75,19 @@ public class ArdecoCardManager {
                 Log.w(TAG, e);
             }
         }
+    }
+
+    public void createAndUpdateIdFile(DedicatedFile df, String data){
+
+        Log.d(TAG, "Main Id : " + data);
+        String paddedData = String.format("%1$-" + NB_DIGITS + "s", data);
+        paddedData = paddedData.replace(" ", PADDING_DIGIT);
+        Log.d(TAG, "Padded data : " + paddedData);
+
+        if (null == df.getSibling(AbstractFile.EF_ICC_SN)) {
+            df.createFile(new APDU(ConvertUtils.hex2byte(CREATE_ID_FILE)));
+        }
+        df.getSibling(AbstractFile.EF_ICC_SN).updateBinary(new APDU(ConvertUtils.hex2byte(UPDATE_ID_FILE + paddedData)));
     }
 
     private void checkDFStatus( AbstractFile df, ArdecoCallBack callBack) {

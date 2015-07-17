@@ -33,11 +33,12 @@ public enum Failure implements Parcelable {
     ILLEGAL_ARGUMENT,
     ILLEGAL_STATE,
     UNKNOWN,
-    //APDU ERRORS
     CLA_INVALID,
     P1_OR_P2_INVALID,
     LC_INVALID,
-    WRONG_LENGTH, FILE_NOT_FOUND;
+    WRONG_LENGTH,
+    FILE_NOT_FOUND,
+    FILE_ALREADY_EXISTS;
 
 
 

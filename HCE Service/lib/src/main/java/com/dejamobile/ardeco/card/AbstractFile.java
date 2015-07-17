@@ -19,6 +19,14 @@ public abstract class AbstractFile {
 
     protected static final short SW_FILE_INVALIDATED = 0x6a83;
 
+    public final static short MF = (short) 0x3F00;
+    public final static short EF_CHV1 = (short) 0x0000;
+    public final static short EF_CHV2 = (short) 0x0100;
+    public final static short EF_KEY_EXT = (short) 0x0011;
+    public final static short EF_KEY_INT = (short) 0x0001;
+    public final static short EF_ATR = (short) 0x2F01;
+    public final static short EF_ICC_SN = (short) 0x0002;
+
     public static final byte MODE_CREATE_FILE = 0;
     public static final byte MODE_READ_BINARY = 1;
     public static final byte MODE_UPDATE_BINARY = 2;
