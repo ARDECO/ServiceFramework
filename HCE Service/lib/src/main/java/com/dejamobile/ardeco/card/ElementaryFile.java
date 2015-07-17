@@ -9,6 +9,9 @@ public class ElementaryFile extends AbstractFile {
 	// current size of data stored in file
 	short size;
 
+	public ElementaryFile() {
+		super() ;
+	}
 	public ElementaryFile(short fid, DedicatedFile parent, byte[] ac, byte[] d) {
 		super(fid, parent, ac);
 		data = d;
