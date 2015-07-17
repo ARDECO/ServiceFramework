@@ -36,6 +36,11 @@ public class DedicatedFile extends AbstractFile {
     // number of siblings
     private byte number = 0;
 
+    public DedicatedFile() {
+        super();
+
+    }
+
     // constructor only used by MasterFile
     protected DedicatedFile(short fid, byte[] ac) {
         // MasterFile does not have a parent, as it is the root of all files

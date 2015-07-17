@@ -44,6 +44,9 @@ public abstract class AbstractFile {
     private byte fileType;
     protected boolean active = true;
 
+    public AbstractFile() {
+    }
+
     public AbstractFile(short fid, DedicatedFile parent, byte[] ac) {
         fileID = fid;
         parentFile = parent;
