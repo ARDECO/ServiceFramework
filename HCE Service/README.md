@@ -11,7 +11,7 @@ HCE card Emulation / Rf interface
 
 @see com.dejamobile.ardeco.hce.ContactlessEntryPoint
 
-S�quence APDUs type :
+S�quence APDUs type :
 
 ATR : 3B 88 80 01 00 00 00 00 00 81 71 00 F9
 ### select applet, pas de df ni d'ef
@@ -95,6 +95,22 @@ HCE Service / Secure Element simulé / AIDL interface
 ------------------------------------------------------
 Pour des exemples d'invocation des points d'entrées de l'interface se référer à MainActivity.java
 dans le module app
+
+Release 1.1.0
+---------------------------------
+
+Version demo 17/07/2015
+
+Séquence de commandes de lecture de l'identifiant ARDECO
+
+### select applet ARDECO
+-> 00 a4 04 00 0b a0 00 00 05 45 41 72 64 65 63 6f
+### select MF
+-> 00 A4 00 00 02 3F 00
+### select ID file
+-> 00 A4 00 00 02 00 02
+### Read Id
+-> 00 B0 00 00 0a
 
 
 
