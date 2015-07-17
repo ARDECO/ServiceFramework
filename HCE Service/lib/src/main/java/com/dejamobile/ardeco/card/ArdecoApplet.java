@@ -3,7 +3,9 @@ package com.dejamobile.ardeco.card;
 import android.content.Context;
 import android.util.Log;
 
+import com.dejamobile.ardeco.util.DBManager;
 import com.dejamobile.ardeco.util.IntentsFactory;
+import com.snappydb.SnappydbException;
 
 import java.util.Random;
 
@@ -53,10 +55,16 @@ public class ArdecoApplet extends HCEApplet {
     private Context context;
 
     public ArdecoApplet() {
+
     }
 
     public void setContext(Context context) {
         this.context = context;
+        try {
+            masterFile = DBManager.getInstance(context).retrieveFileSystem();
+        } catch (SnappydbException e) {
+            Log.e(TAG,"Persist issue " + e.getMessage());
+        }
     }
 
     @Override
